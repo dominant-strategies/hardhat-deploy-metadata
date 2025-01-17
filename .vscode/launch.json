@@ -1,0 +1,25 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+      {
+        "name": "Debug Mocha Tests",
+        "type": "node",
+        "request": "launch",
+        // Points to the Mocha executable in node_modules
+        "program": "${workspaceFolder}/node_modules/mocha/bin/_mocha",
+        "args": [
+          // Any glob or file path pattern to find your tests
+          "test/**/*.js",
+          // Increase timeout for slower tests
+          "--timeout",
+          "40000",
+          // Show colors in the console
+          "--colors"
+        ],
+        // Use an integrated terminal so you can see interactive logs
+        "console": "integratedTerminal",
+        // Ensure we are in the root of the plugin workspace
+        "cwd": "${workspaceFolder}"
+      }
+    ]
+  }
