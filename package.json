@@ -1,6 +1,6 @@
 {
   "name": "@quai/hardhat-deploy-metadata",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A Hardhat plugin that allows users to push contract metadata to IPFS.",
   "main": "index.js",
   "author": "jonathan.quai",
@@ -17,7 +17,7 @@
     "test": "mocha --timeout 40000"
   },
   "peerDependencies": {
-    "hardhat": "^2.0.0"
+    "hardhat": "^2.22.0"
   },
   "dependencies": {
     "@ethereum-sourcify/bytecode-utils": "^1.2.12",
@@ -30,7 +30,7 @@
     "chai": "^4.1.2",
     "crypto": "^1.0.1",
     "dotenv": "^16.4.5",
-    "hardhat": "^2.0.0",
+    "hardhat": "^2.22.0",
     "ipfs-only-hash": "^4.0.0",
     "kubo-rpc-client": "^5.0.2",
     "mocha": "^11.0.1"

@@ -47,7 +47,9 @@ async function pushMetadataToIPFS(hre, contractName) {
         await client.pin.add(cid);
         console.log('File added with CID:', cid.toString());
         console.log("Original IPFS hash found in bytecode:", data.ipfs);
-
+        if(data.ipfs !== cid.toString()) {
+          throw new Error("IPFS hash in bytecode does not match the CID of the added metadata, want " + data.ipfs + " got " + cid.toString())
+        }
         const outputPath = path.join(
           hre.config.paths.root,
           "metadata",

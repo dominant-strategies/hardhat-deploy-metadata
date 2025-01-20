@@ -22,6 +22,7 @@ describe("Hardhat IPFS Metadata Plugin", function () {
 
       // The plugin returns the IPFS hash from the metadata in the bytecode
       expect(ipfsHash).to.be.a("string");
+      expect(ipfsHash.length).to.be.equal(46);
       console.log(`Retrieved IPFS hash: ${ipfsHash}`);
     });
   });
