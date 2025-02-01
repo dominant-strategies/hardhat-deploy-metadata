@@ -4,7 +4,7 @@ const { parseFullyQualifiedName } = require("hardhat/utils/contract-names");
 const Hash = require('ipfs-only-hash')
 const CBOR = require('cbor-x')
 const bs58 = require('bs58')
-const { splitAuxdata } = require('@ethereum-sourcify/bytecode-utils');
+const { splitAuxdata, AuxdataStyle } = require('@ethereum-sourcify/bytecode-utils');
 const { arrayify } = require('@ethersproject/bytes')
 const { extendEnvironment } = require("hardhat/config");
 
@@ -12,11 +12,17 @@ const IPFS_URL = 'http://quai.fi/ipfs/api/v0'
 
 async function pushMetadataToIPFS(hre, contractName) {
 
-    //ensureBytecodeHashIsIPFS(hre);
     // Load the artifact for the specified contract
     const { artifacts } = hre; // The Hardhat 'artifacts' object
     const artifact = await artifacts.readArtifact(contractName);
-    let metadataSections = decodeMultipleMetadataSections(artifact.deployedBytecode)
+    const ipfsHash = await pushMetadataToIPFSWithBytecode(hre, artifact.deployedBytecode)
+    return ipfsHash
+  }
+
+  async function pushMetadataToIPFSWithBytecode(hre, bytecode) {
+    const { artifacts } = hre; // The Hardhat 'artifacts' object
+
+    let metadataSections = decodeMultipleMetadataSections(bytecode)
   
     let ipfsEntries = []
     const fqNames = await artifacts.getAllFullyQualifiedNames();
@@ -94,7 +100,7 @@ async function pushMetadataToIPFS(hre, contractName) {
   
     while (remainingBytecode.length > 0) {
       try {
-        const [executionBytecode, auxdata] = splitAuxdata(remainingBytecode);
+        const [executionBytecode, auxdata] = splitAuxdata(remainingBytecode, AuxdataStyle.SOLIDITY);
   
         if (auxdata) {
           const decodedMetadata = CBOR.decode(arrayify(`0x${auxdata}`));
@@ -121,8 +127,9 @@ async function pushMetadataToIPFS(hre, contractName) {
   // Extend Hardhat's environment
 extendEnvironment((hre) => {
     // attach the function to the HRE
-    hre.deployABI = {
-      pushMetadataToIPFS: (contractName) => pushMetadataToIPFS(hre, contractName)
+    hre.deployMetadata = {
+      pushMetadataToIPFS: (contractName) => pushMetadataToIPFS(hre, contractName),
+      pushMetadataToIPFSWithBytecode: (bytecode) => pushMetadataToIPFSWithBytecode(hre, bytecode),
     };
   })
 
