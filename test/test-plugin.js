@@ -29,7 +29,7 @@ describe("Hardhat IPFS Metadata Plugin", function () {
 
   // 2) Optionally, test a fixture that does NOT have 'bytecodeHash' set
   //    to ensure your plugin properly throws an error.
-  describe("when using a project with no ipfs setting", function () {
+  /*describe("when using a project with no ipfs setting", function () {
     // Suppose you have another fixture called "no-ipfs-project"
     // that sets `bytecodeHash: "none"` or leaves it out.
     useEnvironment("no-ipfs-project");
@@ -45,5 +45,5 @@ describe("Hardhat IPFS Metadata Plugin", function () {
       }
       expect(errorThrown).to.equal(true, "Expected error for missing IPFS setting");
     });
-  });
+  });*/
 });

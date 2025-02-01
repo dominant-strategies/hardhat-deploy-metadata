@@ -1,6 +1,6 @@
 {
   "name": "@quai/hardhat-deploy-metadata",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "A Hardhat plugin that allows users to push contract metadata to IPFS.",
   "main": "index.js",
   "author": "jonathan.quai",

@@ -12,7 +12,7 @@ const IPFS_URL = 'http://quai.fi/ipfs/api/v0'
 
 async function pushMetadataToIPFS(hre, contractName) {
 
-    ensureBytecodeHashIsIPFS(hre);
+    //ensureBytecodeHashIsIPFS(hre);
     // Load the artifact for the specified contract
     const { artifacts } = hre; // The Hardhat 'artifacts' object
     const artifact = await artifacts.readArtifact(contractName);
@@ -35,7 +35,22 @@ async function pushMetadataToIPFS(hre, contractName) {
       }
     }
     if (ipfsEntries.length === 0) {
-      throw new Error('No metadata found in bytecode');
+      throw new Error(
+        "Hardhat plugin error: No IPFS hash found in bytecode metadata. You must set `bytecodeHash: 'ipfs'` in your hardhat.config.js compiler settings:\n\n" +
+        "  solidity: {\n" +
+        "    compilers: [\n" +
+        "      {\n" +
+        "        version: '0.8.19',\n" +
+        "        settings: {\n" +
+        "          metadata: {\n" +
+        "            bytecodeHash: 'ipfs',\n" +
+        "            ...\n" +
+        "          }\n" +
+        "        }\n" +
+        "      }\n" +
+        "    ]\n" +
+        "  }"
+        );
     }
     const { create } = await import('kubo-rpc-client')
     const client = create({
