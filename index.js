@@ -7,8 +7,7 @@ const bs58 = require('bs58')
 const { splitAuxdata, AuxdataStyle } = require('@ethereum-sourcify/bytecode-utils');
 const { arrayify } = require('@ethersproject/bytes')
 const { extendEnvironment } = require("hardhat/config");
-
-const IPFS_URL = 'http://quai.fi/ipfs/api/v0'
+const IPFS_URL = 'https://ipfs.qu.ai/api/v0'
 
 async function pushMetadataToIPFS(hre, contractName) {
 
@@ -85,6 +84,7 @@ async function pushMetadataToIPFS(hre, contractName) {
   
     } catch (error) {
       console.error('Error adding file:', error);
+      return ""
     }
     return ipfsEntries[0].ipfs
   }
@@ -163,6 +163,6 @@ function ensureBytecodeHashIsIPFS(hre) {
         "  }"
         );
     }
-}
+  }
 
 module.exports.pushMetadataToIPFS = pushMetadataToIPFS;

@@ -5,7 +5,6 @@ describe("Hardhat IPFS Metadata Plugin", function () {
   // 1) Test using a project that DOES have `bytecodeHash: "ipfs"`
   describe("when using the ipfs-project fixture", function () {
     useEnvironment("ipfs-project");
-
     it("should attach 'deployMetadata.pushMetadataToIPFS' to the Hardhat environment", function () {
       // this.env is the Hardhat Runtime Environment loaded from helpers.js
       expect(this.env.deployMetadata).to.be.an("object");
